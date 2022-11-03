@@ -3,6 +3,7 @@ import './App.css';
 import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import {message, Upload, Modal, Button} from 'antd';
 import React, {useState} from 'react';
+import { postUploadFile } from './resourse';
 
 
 function App() {
@@ -50,6 +51,11 @@ function App() {
             </div>
         </div>
     );
+    const customRequest = async (props) => {
+        const file = props.file;
+        console.log("ppppp",props.file)
+        const res = await postUploadFile(file, "category");
+    };
 
     return (
         <div className="App">
@@ -57,17 +63,19 @@ function App() {
                 <img src={logo} className="App-logo" alt="logo"/>
 
                 <Upload
-                    // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+
                     listType="picture-card"
                     fileList={fileList}
                     // onPreview={handlePreview}
-                    onChange={handleChange}
+                    // onChange={handleChange}
+                    customRequest={customRequest}
                 >
                     {fileList.length >= 1 ? null : uploadButton}
                 </Upload>
-                <Button onClick={logBase64}>
-                    打印base64
-                </Button>
+                {/*<Button onClick={logBase64}>*/}
+                {/*    打印base64*/}
+                {/*</Button>*/}
+                {/*<input type="file"/>*/}
                 {/*<Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>*/}
                 {/*    <img*/}
                 {/*        alt="example"*/}
